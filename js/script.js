@@ -144,7 +144,7 @@ var collisions = false;
 
 // Set number of boids based on browser and screen size
 if (firefox) {
-  var maxBoids = 250;
+  var maxBoids = 100;
 } else if (mobile) {
   var maxBoids = 150;
 } else {
@@ -518,3 +518,33 @@ function updateDiversity(value) {
 }
 
 /*---- end Inputs ----*/
+
+
+// Add boids on click
+canvas.addEventListener('click', function(event) {
+  addBoid(event.clientX, event.clientY);
+});
+
+function addBoid(x, y) {
+  var introversionCoefficient = getCoefficient() / 100;
+  var quicknessCoefficient = getQuicknessCoefficient() / 100;
+  var racismCoefficient = getCoefficient() / 100;
+  var radiusCoefficient = Math.floor(Math.random() * radiusCoefficients.length);
+
+  // Add new Boid to array
+  boids.push(new Boid({
+    id: boids.length,
+    x: x,
+    y: y,
+    speedIndex: speedIndex,
+    radius: radius,
+    radiusCoefficient: radiusCoefficient,
+    quickness: quickness,
+    quicknessCoefficient: quicknessCoefficient,
+    color: randomColor(colors),
+    racism: racism,
+    racismCoefficient: racismCoefficient,
+    introversion: introversion,
+    introversionCoefficient: introversionCoefficient
+  }));
+}
