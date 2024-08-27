@@ -173,31 +173,51 @@ class Boid {
    * Run force calculation functions for the boid, then apply forces
    *
    */
-  flock() {
+// boid.js
+flock() {
+  // Get Forces
+  var alignForce = new Victor(0, 0);
+  var cohesionForce = new Victor(0, 0);
 
-    // Get Forces
-    var alignForce = this.align(boids);
-    if ( mouseSeek ) var mouseForce = this.seek(mouse.position);
-    var separateForce = this.separate(boids);
-    var cohesionForce = this.cohesion(boids);
-    if ( walls ) var avoidWallsForce = this.avoidWalls();
-
-    // Weight Forces
-    var alignWeight = 1.2;
-    if ( mouseSeek ) var mouseWeight = .2;
-    var separateWeight = 1;
-    var cohesionWeight = 1;
-    if ( walls ) var avoidWallsWeight = 1.2;
-
-
-    // Apply forces
-    this.applyForce( alignForce, alignWeight );
-    if ( mouseSeek ) this.applyForce( mouseForce, mouseWeight );
-    this.applyForce( separateForce, separateWeight );
-    this.applyForce( cohesionForce, cohesionWeight );
-    if ( walls && avoidWallsForce ) this.applyForce( avoidWallsForce, avoidWallsWeight );
-
+  if (isAligned.checked) {
+      alignForce = this.align(boids);
   }
+
+  if (mouseSeek) {
+      var mouseForce = this.seek(mouse.position);
+  }
+
+  var separateForce = this.separate(boids);
+
+  if (walls) {
+      var avoidWallsForce = this.avoidWalls();
+  }
+
+  // Weight Forces
+  var alignWeight = 1.2;
+  var separateWeight = 1;
+  var cohesionWeight = 1;
+
+  if (mouseSeek) {
+      var mouseWeight = 0.2;
+  }
+
+  if (walls) {
+      var avoidWallsWeight = 1.2;
+  }
+
+  // Apply forces
+  this.applyForce(alignForce, alignWeight);
+  if (mouseSeek) {
+      this.applyForce(mouseForce, mouseWeight);
+  }
+  this.applyForce(separateForce, separateWeight);
+  this.applyForce(cohesionForce, cohesionWeight);
+  if (walls && avoidWallsForce) {
+      this.applyForce(avoidWallsForce, avoidWallsWeight);
+  }
+}
+
 
   /**
    * Apply a coefficient to a given force and apply it to the boid

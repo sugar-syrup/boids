@@ -380,6 +380,10 @@ wallsMobile.onclick = function() {
   }
 }
 
+// Setting for rules
+var isAligned = document.getElementById('alignment');
+isAligned.checked = true;
+
 // Collision Detection
 var collisionDetectionInput = document.getElementById('collision-detection');
 collisionDetectionInput.checked = false;
